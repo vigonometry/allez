@@ -3,7 +3,20 @@ from flask import Flask, request
 from openai import OpenAI
 import os
 
-template_promt = """
+IS_TEST = os.getenv('IS_TEST')
+TEST_DATA = {
+  "policy_name": "AIA Solitaire PA (II)",
+  "sum_assured": {
+    "death": "0",
+    "total_permanent_disability": "0",
+    "critical_illness": "0",
+    "health": "0",
+    "accidental_death": "100000",
+    "accidental_tpd": "300000"
+  }
+}
+
+template_prompt = """
             I will be sending you a document of an insurance policy.
 
             The policy might have different
@@ -50,7 +63,9 @@ template_promt = """
             """
 
 def extract_data(text: str):
-
+    if IS_TEST:
+        return TEST_DATA
+    
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
     OPENAI_ORG = os.getenv('OPENAI_ORG')
     OPENAI_PROJECT = os.getenv('OPENAI_PROJECT')
@@ -64,15 +79,16 @@ def extract_data(text: str):
     completion = client.chat.completions.create(
         model="gpt-4o",
         messages=[
-            {"role": "user", "content": f'{template_promt} {text}'}
+            {"role": "user", "content": f'{template_prompt} {text}'}
         ]
     )
-
     return completion.choices[0].message
 
-def get_data(file):
-
-    with pdfplumber.open("Benefit Illustration May 25 2024 145102.pdf") as pdf:
+def parse_pdf(file):
+    if IS_TEST:
+        return ""
+    
+    with pdfplumber.open(file) as pdf:
 
         data_by_pages = {}
 
@@ -80,23 +96,3 @@ def get_data(file):
             data_by_pages[i + 1] = page.extract_text()
 
         return data_by_pages
-
-app = Flask(__name__)
-
-@app.route("/", methods=["GET", "POST"])
-def hello_world():
-    if request.method == "POST":
-        # Check if the post request has the file part
-        if "file" not in request.files:
-            return "No file part"
-        file = request.files["file"]
-        # If the user does not select a file, the browser submits an empty file without a filename
-        if file.filename == "":
-            return "No selected file"
-        if file:
-            data = get_data(file)
-            extracted = extract_data(data)
-            return extracted
-        
-if __name__ == "__main__":
-    app.run(debug=True)
