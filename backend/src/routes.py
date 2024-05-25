@@ -8,50 +8,56 @@ routes = Blueprint('routes', __name__)
 
 @routes.route('/upload', methods=['POST'])
 def upload_policy():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
+    try:
+        if 'file' not in request.files:
+            return jsonify({'error': 'No file part'}), 400
 
-    file = request.files['file']
-    
-    def allowed_file(filename):
-        return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'pdf'}
-    
-    if file and allowed_file(file.filename):
-        text = parse_pdf(file)
-        data = extract_data(text)    
+        file = request.files['file']
         
-        # update database
-        conn = get_db_connection()
-        cursor = conn.cursor()
-        try:
-            policy_name = data["policy_name"]
-            fields = data["sum_assured"]  
-            cursor.execute('''
-                           INSERT INTO policy (id,
-                                                death, 
-                                                total_permanent_disability, 
-                                                critical_illness, 
-                                                health, 
-                                                accidental_death, 
-                                                accidental_tpd) 
-                            VALUES (?, ?, ?, ?, ?, ?, ?)''', 
-                           (policy_name,
-                            fields['death'], 
-                            fields['total_permanent_disability'], 
-                            fields['critical_illness'], 
-                            fields['health'], 
-                            fields['accidental_death'], 
-                            fields['accidental_tpd']))
-            conn.commit()
-        except sqlite3.IntegrityError as e:
+        def allowed_file(filename):
+            return '.' in filename and filename.rsplit('.', 1)[1].lower() in {'pdf'}
+        
+        if file and allowed_file(file.filename):
+            text = parse_pdf(file)
+            data = extract_data(text)    
+            
+            # update database
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            try:
+                policy_name = data["policy_name"]
+                fields = data["sum_assured"]  
+                cursor.execute('''
+                            INSERT INTO policy (id,
+                                                    death, 
+                                                    total_permanent_disability, 
+                                                    critical_illness, 
+                                                    health, 
+                                                    accidental_death, 
+                                                    accidental_tpd) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?)''', 
+                            (policy_name,
+                                fields['death'], 
+                                fields['total_permanent_disability'], 
+                                fields['critical_illness'], 
+                                fields['health'], 
+                                fields['accidental_death'], 
+                                fields['accidental_tpd']))
+                conn.commit()
+            except sqlite3.IntegrityError as e:
+                conn.close()
+                # raise e
+                return jsonify({'error': str(e)}), 400
+
             conn.close()
-            return jsonify({'error': str(e)}), 400
+            
+            return jsonify(data)
 
-        conn.close()
-        
-        return jsonify(data)
+    except Exception as e:
+        # raise e
 
-    return jsonify({'error': 'Invalid file format'}), 400
+        return jsonify({'error': 'Invalid file format'}), 400
+    
 
 @routes.route('/policies', methods=['GET'])
 def get_policies():

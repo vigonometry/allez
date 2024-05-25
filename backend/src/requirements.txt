@@ -2,3 +2,4 @@ pdfplumber
 requests
 openai
 Flask
+Flask-CORS
