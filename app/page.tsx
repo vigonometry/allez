@@ -2,6 +2,7 @@ import { PolicyUpload } from "@/components/PolicyUpload";
 import Image from "next/image";
 import { BreakdownChart} from "@/components/BreakdownChart";
 import { examplePolicies } from "@/sample_data/samplePolicies";
+import MultiSelect from "@/components/DropDown";
 
 
 export default function Home() {
@@ -17,8 +18,8 @@ export default function Home() {
         
       </div>
 
-    <div className="align-left w-full">
-      <SelectScrollable />
+    <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:grid-cols-4 lg:text-left">
+      <MultiSelect />
     </div>
 
     <div className="align-left w-full h-max-500">
