@@ -3,7 +3,8 @@ from flask import Flask, request
 from openai import OpenAI
 import os
 
-IS_TEST = os.getenv('IS_TEST')
+IS_TEST = True
+
 TEST_DATA = {
   "policy_name": "AIA Solitaire PA (II)",
   "sum_assured": {

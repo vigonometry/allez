@@ -36,3 +36,8 @@ yarn-error.log*
 next-env.d.ts
 
 .venv
+backend/.env
+backend/src/__pycache__/database.cpython-38.pyc
+backend/src/__pycache__/extractor.cpython-38.pyc
+backend/src/__pycache__/routes.cpython-38.pyc
+backend/src/app.db
