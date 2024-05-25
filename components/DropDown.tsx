@@ -1,28 +1,22 @@
-import * as React from "react"
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import React from 'react';
+import MultipleSelector, { Option } from './ui/multiple-selector';
 
-export function SelectScrollable() {
+const OPTIONS: Option[] = [
+  { label: 'AIA Life Insurance', value: 'aia' },
+  { label: 'NTUC Income Insurance', value: 'ntuc' },
+];
+
+const MultiSelect = () => {
   return (
-    <Select>
-      <SelectTrigger className="w-[280px]">
-        <SelectValue placeholder="Select a policy" />
-      </SelectTrigger>
-      <SelectContent>
-        <SelectGroup>
-          <SelectLabel>AIA</SelectLabel>
-          <SelectItem value="lpp">Lifetime Protector Plus</SelectItem>
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  )
-}
+    <div className=" align-left ">
+      <MultipleSelector
+        defaultOptions={OPTIONS}
+        placeholder="Select Policies"
+       
+      />
+    </div>
+  );
+};
 
+export default MultiSelect;
