@@ -5,7 +5,7 @@ import os
 
 IS_TEST = True
 
-TEST_DATA = [{
+TEST_DATA = {
     "policy_name": "AIA Solitaire PA (II)",
     "sum_assured": {
         "death": "0",
@@ -15,41 +15,7 @@ TEST_DATA = [{
         "accidental_death": "100000",
         "accidental_tpd": "300000"
         }
-    }, 
-    {
-    "policy_name": "AVIVA MyProtector-Term Plan",
-    "sum_assured": {
-        "death": "0",
-        "total_permanent_disability": "20000",
-        "critical_illness": "0",
-        "health": "100000",
-        "accidental_death": "0",
-        "accidental_tpd": "300000"
-         }
-    }, 
-    {
-    "policy_name": "ManuLife ReadyProtect",
-    "sum_assured": {
-        "death": "300000",
-        "total_permanent_disability": "0",
-        "critical_illness": "100000",
-        "health": "0",
-        "accidental_death": "0",
-        "accidental_tpd": "0"
-         }
-    }, 
-    {
-    "policy_name": "NTUC Income PA Assurance",
-    "sum_assured": {
-        "death": "0",
-        "total_permanent_disability": "500000",
-        "critical_illness": "0",
-        "health": "0",
-        "accidental_death": "0",
-        "accidental_tpd": "0"
-         }
     }
-]
 
 template_prompt = """
             I will be sending you a document of an insurance policy.
@@ -99,7 +65,7 @@ template_prompt = """
 
 def extract_data(text: str):
     if IS_TEST:
-        return TEST_DATA[0]
+        return TEST_DATA
     
     OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
     OPENAI_ORG = os.getenv('OPENAI_ORG')

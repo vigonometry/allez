@@ -1,10 +1,8 @@
-"use client";
 
-import React, { useEffect, useState } from "react";
-import { Card } from "./ui/card"; // Assuming you have a Card component
-import { CardVariable } from "./CardVariable"; // Assuming you have a CardVariable component
-import { examplePolicies } from "../sample_data/samplePolicies";
-import { useQuery } from "@tanstack/react-query";
+
+import React from 'react';
+import { Card } from './ui/card';
+import { CardVariable } from './CardVariable';
 
 const attributeNames: { [key: string]: string } = {
   death: "Life Insurance",
@@ -15,44 +13,60 @@ const attributeNames: { [key: string]: string } = {
   accidental_tpd: "Accidental TPD",
 };
 
-export const PolicyCards = () => {
-  const { isPending, error, data } = useQuery({
-    queryKey: ["policies-data"],
-    queryFn: () =>
-      fetch("http://localhost:5000/policies").then((res) => res.json()),
+interface PolicyCardsProps {
+  selectedPolicies?: string[]; 
+  policies: any[];
+}
+
+export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [], policies }) => {
+  const attributeSums: { [key: string]: number } = {};
+
+  const policiesToSum = selectedPolicies.length > 0 ? selectedPolicies : policies.map(policy => policy.policy_name.toLowerCase().replace(/\s/g, '_'));
+
+  policiesToSum.forEach(policyName => {
+    const policy = policies.find(policy => policy.policy_name.toLowerCase().replace(/\s/g, '_') === policyName);
+    if (policy) {
+      Object.entries(policy.sum_assured).forEach(([attribute, value]) => {
+        attributeSums[attribute] = (attributeSums[attribute] || 0) + parseInt(value as string);
+      });
+    }
   });
 
-  const [attributes, setAttributes] = useState<any>();
+  const greenCards: JSX.Element[] = [];
+  const redCards: JSX.Element[] = [];
 
-  useEffect(() => {
-    if (data) {
-      const attributeSums: { [key: string]: number } = {};
-
-      data["policies"].forEach((policy: any) => {
-        Object.entries(policy).forEach(([attribute, value]) => {
-          attributeSums[attribute] =
-            (attributeSums[attribute] || 0) + parseInt(value as string);
-        });
-      });
-
-      setAttributes(attributeSums);
+  Object.entries(attributeSums).forEach(([attribute, sum], index) => {
+    const card = (
+        <div key={index} className="m-4"> 
+        <CardVariable
+          title={attributeNames[attribute]}
+          description={sum.toString()}
+        />
+      </div>
+    );
+    if (sum === 0) {
+      redCards.push(card);
+    } else {
+      greenCards.push(card);
     }
-  }, [data]);
+  });
 
   return (
-    <div className="flex flex-wrap">
-      <div className=" grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {attributes &&
-          Object.entries(attributes).map(
-            ([attribute, sum]: any, index: number) => (
-              <div key={index} className="p-4">
-                <CardVariable
-                  title={attributeNames[attribute]}
-                  description={sum.toString()}
-                />
-              </div>
-            )
-          )}
+   
+   
+
+ <div className="flex">
+      <div className="flex-1 p-4">
+        <h2 className="place-items-center text-xl font-semibold">Coverage</h2>
+        <div className="flex flex-wrap">
+          {greenCards}
+        </div>
+      </div>
+      <div className="flex-1 p-4">
+        <h2 className="text-xl font-semibold">Recommendations</h2>
+        <div className="flex flex-wrap">
+          {redCards}
+        </div>
       </div>
     </div>
   );

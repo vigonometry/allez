@@ -7,17 +7,28 @@ const OPTIONS: Option[] = examplePolicies.map((policy) => ({
   value: policy.policy_name.toLowerCase().replace(/\s/g, "_"),
 }));
 
-const MultiSelect = ({
-  setData,
-}: {
-  setData: Dispatch<SetStateAction<any>>;
-}) => {
+interface MultiSelectProps {
+  setSelectedPolicies: (selected: string[]) => void;
+}
+
+const MultiSelect: React.FC<
+  MultiSelectProps & {
+    setData: Dispatch<SetStateAction<any>>;
+  }
+> = (item, { setSelectedPolicies, setData }) => {
+  const handleSelectionChange = (selectedOptions: Option[]) => {
+    const selectedValues = selectedOptions.map((option) => option.value);
+    setSelectedPolicies(selectedValues);
+
+    setData(item);
+  };
+
   return (
-    <div className=" align-left ">
+    <div className="align-left">
       <MultipleSelector
         defaultOptions={OPTIONS}
         placeholder="Select Policies"
-        onChange={(item) => setData(item)}
+        onChange={handleSelectionChange}
       />
     </div>
   );
