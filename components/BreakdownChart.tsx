@@ -41,7 +41,7 @@ export class Policy {
 
 class Props {
     policies: Policy[];
-    policyType: keyof Assurance
+    policyType: keyof Assurance;
 }
 
 const PieChart = dynamic(() => import('react-chartjs-2').then((mod) => mod.Pie), {ssr: false});

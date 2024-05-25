@@ -29,7 +29,7 @@ export default function Home() {
       <div className="p-4">
       <MultiSelect setSelectedPolicies={setSelectedPolicies} />
       </div>
-      <BreakdownChart policies={examplePolicies} policyType='accidental_death'/>
+      <BreakdownChart policies={selectedPolicies.length === 0 ? examplePolicies : examplePolicies.filter(x => selectedPolicies.includes(x.policy_name.toLowerCase().replace(/\s/g, '_')))} policyType='accidental_death'/>
       </div>
 
         <div className="col-start-3 row-start-1 p-4 ">
