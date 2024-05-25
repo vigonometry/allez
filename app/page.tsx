@@ -1,7 +1,7 @@
 import { PolicyUpload } from "@/components/PolicyUpload";
 import Image from "next/image";
-import  MultiSelect  from "../components/DropDown"
-
+import { BreakdownChart} from "@/components/BreakdownChart";
+import { examplePolicies } from "@/sample_data/samplePolicies";
 
 
 export default function Home() {
@@ -17,12 +17,13 @@ export default function Home() {
         
       </div>
 
-    <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:grid-cols-4 lg:text-left">
-      <MultiSelect/></div>
+    <div className="align-left w-full">
+      <SelectScrollable />
+    </div>
 
-
-     
-
+    <div className="align-left w-full h-max-500">
+      <BreakdownChart policies={examplePolicies} policyType='accidental_death'/>
+    </div>
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
         <a
           href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
