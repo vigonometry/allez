@@ -6,11 +6,15 @@ import { examplePolicies } from "@/sample_data/samplePolicies";
 import MultiSelect from "@/components/DropDown";
 import { CardVariable } from "../components/CardVariable";
 import { PolicyCards } from "../components/PolicyCards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LanguageSwitch from "@/components/LangSwitch";
 
 export default function Home() {
   const [lang, setLang] = useState<string>("English");
+
+  const [label, setLabel] = useState<any>();
+
+  useEffect(() => console.log(label), [label]);
 
   return (
     <main className="p-24">
@@ -27,12 +31,9 @@ export default function Home() {
       <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:grid-cols-4 lg:text-left">
         <div className="col-start-1 row-start-1">
           <div className="p-4">
-            <MultiSelect />
+            <MultiSelect setData={setLabel} />
           </div>
-          <BreakdownChart
-            policies={examplePolicies}
-            policyType="accidental_death"
-          />
+          <BreakdownChart activePolicies={label} />
         </div>
 
         <div className="col-start-3 row-start-1 p-4 ">
