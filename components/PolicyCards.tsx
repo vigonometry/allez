@@ -37,11 +37,12 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [],
 
   Object.entries(attributeSums).forEach(([attribute, sum], index) => {
     const card = (
-      <CardVariable
-        key={index}
-        title={attributeNames[attribute]}
-        description={sum.toString()}
-      />
+        <div key={index} className="m-4"> 
+        <CardVariable
+          title={attributeNames[attribute]}
+          description={sum.toString()}
+        />
+      </div>
     );
     if (sum === 0) {
       redCards.push(card);
@@ -51,14 +52,21 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [],
   });
 
   return (
-    <div className="flex flex-wrap">
-      <div className="p-2 col-start-1 row-start-1">
-        <h2 className="text-xl font-semibold mb-4 h-10 p-5">Coverage</h2>
-        {greenCards}
+   
+   
+
+ <div className="flex">
+      <div className="flex-1 p-4">
+        <h2 className="place-items-center text-xl font-semibold">Coverage</h2>
+        <div className="flex flex-wrap">
+          {greenCards}
+        </div>
       </div>
-      <div className="p-2 col-start-3 row-start-1">
-        <h2 className="text-xl font-semibold mb-4 h-10 p-5">Recommendations</h2>
-        {redCards}
+      <div className="flex-1 p-4">
+        <h2 className="text-xl font-semibold">Recommendations</h2>
+        <div className="flex flex-wrap">
+          {redCards}
+        </div>
       </div>
     </div>
   );

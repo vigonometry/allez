@@ -10,7 +10,7 @@ interface CardVariableProps {
 }
 
 export function CardVariable({ title, description }: CardVariableProps) {
- 
+
   const circleColorClass = description === '0' ? 'bg-red-400' : 'bg-green-400';
 
   return (
