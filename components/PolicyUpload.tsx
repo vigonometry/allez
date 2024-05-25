@@ -26,6 +26,12 @@ export const PolicyUpload = () => {
   //         console.error("Error:", error);
   //       });
   //   };
+  const [fileInput, setFileInput] = useState<any | null>(null);
+
+  const handleChange = (event: any) => {
+    setFileInput(event.target.files[0]);
+
+  }
 
   return (
     <form
@@ -35,8 +41,8 @@ export const PolicyUpload = () => {
       encType="multipart/form-data"
       method="POST"
     >
-      <Input id="policy" name="file" type="file" placeholder="Policy Upload" />
-      <Button>Submit</Button>
+      <Input id="policy" name="file" type="file" placeholder="Policy Upload" onChange={handleChange} />
+      <Button disabled={!fileInput}>Submit</Button>
     </form>
   );
 };
