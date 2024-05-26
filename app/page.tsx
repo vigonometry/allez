@@ -41,7 +41,9 @@ export default function Home() {
           <div className="">
             <MultiSelect setSelectedPolicies={setSelectedPolicies} />
           </div>
+          <div className="p-2">
           <CoverageDropdown setSelectedCoverage={setSelectedCoverage} />
+          </div>
           {data && (
             <BreakdownChart
               policies={
