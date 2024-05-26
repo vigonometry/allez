@@ -11,7 +11,10 @@ interface CardVariableProps {
 
 export function CardVariable({ title, description }: CardVariableProps) {
 
-  const circleColorClass = description === '0' ? 'bg-red-400' : 'bg-green-400';
+const circleColorClass = description === '0' 
+    ? 'bg-red-400' 
+    : (Number(description) > 0 && Number(description) < 100000 ? 'bg-orange-400' : 'bg-green-400');
+
 
   return (
     <Card className="w-[250px]">
@@ -26,4 +29,3 @@ export function CardVariable({ title, description }: CardVariableProps) {
     </Card>
   );
 }
-

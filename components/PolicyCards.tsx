@@ -1,5 +1,7 @@
 
 
+
+
 import React from 'react';
 import { Card } from './ui/card';
 import { CardVariable } from './CardVariable';
@@ -33,6 +35,7 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [],
   });
 
   const greenCards: JSX.Element[] = [];
+  const orangeCards: JSX.Element[] = [];
   const redCards: JSX.Element[] = [];
 
   Object.entries(attributeSums).forEach(([attribute, sum], index) => {
@@ -46,7 +49,10 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [],
     );
     if (sum === 0) {
       redCards.push(card);
-    } else {
+    } else if( 0<sum && sum<100000) {
+        orangeCards.push(card);
+    }
+    else {
       greenCards.push(card);
     }
   });
@@ -60,6 +66,7 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [],
         <h2 className="place-items-center text-xl font-semibold">Coverage</h2>
         <div className="flex flex-wrap">
           {greenCards}
+          {orangeCards}
         </div>
       </div>
       <div className="flex-1 p-4">
