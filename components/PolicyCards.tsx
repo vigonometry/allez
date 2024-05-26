@@ -74,7 +74,7 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({
           Congrats! You are covered for the value of the sum assured for the
           following benefits.
         </p>
-        <div className="flex flex-wrap mt-2">{greenCards}</div>
+        <div className="flex flex-wrap mt-2">{greenCards} {orangeCards}</div>
       </div>
       <div className="flex-1">
         <h2 className="text-xl font-semibold">Recommendations</h2>
