@@ -1,8 +1,6 @@
-
-
-import React from 'react';
-import { Card } from './ui/card';
-import { CardVariable } from './CardVariable';
+import React from "react";
+import { Card } from "./ui/card";
+import { CardVariable } from "./CardVariable";
 
 const attributeNames: { [key: string]: string } = {
   death: "Life Insurance",
@@ -14,20 +12,30 @@ const attributeNames: { [key: string]: string } = {
 };
 
 interface PolicyCardsProps {
-  selectedPolicies?: string[]; 
+  selectedPolicies?: string[];
   policies: any[];
 }
 
-export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [], policies }) => {
+export const PolicyCards: React.FC<PolicyCardsProps> = ({
+  selectedPolicies = [],
+  policies,
+}) => {
   const attributeSums: { [key: string]: number } = {};
 
-  const policiesToSum = selectedPolicies.length > 0 ? selectedPolicies : policies.map(policy => policy.policy_name.toLowerCase().replace(/\s/g, '_'));
+  const policiesToSum =
+    selectedPolicies.length > 0
+      ? selectedPolicies
+      : policies.map((policy) => policy.id.toLowerCase().replace(/\s/g, "_"));
 
-  policiesToSum.forEach(policyName => {
-    const policy = policies.find(policy => policy.policy_name.toLowerCase().replace(/\s/g, '_') === policyName);
+  policiesToSum.forEach((policyName) => {
+    const policy = policies.find(
+      (policy) => policy.id.toLowerCase().replace(/\s/g, "_") === policyName
+    );
+
     if (policy) {
-      Object.entries(policy.sum_assured).forEach(([attribute, value]) => {
-        attributeSums[attribute] = (attributeSums[attribute] || 0) + parseInt(value as string);
+      Object.entries(policy).forEach(([attribute, value]) => {
+        attributeSums[attribute] =
+          (attributeSums[attribute] || 0) + parseInt(value as string);
       });
     }
   });
@@ -37,7 +45,7 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [],
 
   Object.entries(attributeSums).forEach(([attribute, sum], index) => {
     const card = (
-        <div key={index} className="m-4"> 
+      <div key={index} className="m-4">
         <CardVariable
           title={attributeNames[attribute]}
           description={sum.toString()}
@@ -52,21 +60,14 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({ selectedPolicies = [],
   });
 
   return (
-   
-   
-
- <div className="flex">
+    <div className="flex">
       <div className="flex-1 p-4">
         <h2 className="place-items-center text-xl font-semibold">Coverage</h2>
-        <div className="flex flex-wrap">
-          {greenCards}
-        </div>
+        <div className="flex flex-wrap">{greenCards}</div>
       </div>
       <div className="flex-1 p-4">
         <h2 className="text-xl font-semibold">Recommendations</h2>
-        <div className="flex flex-wrap">
-          {redCards}
-        </div>
+        <div className="flex flex-wrap">{redCards}</div>
       </div>
     </div>
   );

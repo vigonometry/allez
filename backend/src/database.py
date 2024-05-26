@@ -1,3 +1,4 @@
+import random
 import sqlite3
 import os
 
@@ -15,10 +16,11 @@ def init_db():
     conn = sqlite3.connect(DATABASE)
     cursor = conn.cursor()
     
+    cursor.execute("DROP TABLE IF EXISTS policy")
     # Create the users table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS policy (
-            id TEXT PRIMARY KEY,
+            id TEXT PRIMARY KEY UNIQUE,
             death INT NOT NULL,
             total_permanent_disability INT NOT NULL,
             critical_illness INT NOT NULL,
@@ -27,6 +29,7 @@ def init_db():
             accidental_tpd INT NOT NULL
         ) 
     ''')
+    
     
     SAMPLE = [{
     "policy_name": "AVIVA MyProtector-Term Plan",
@@ -64,6 +67,7 @@ def init_db():
     
     for data in SAMPLE:
         policy_name = data["policy_name"]
+        
         fields = data["sum_assured"]  
         cursor.execute('''
                     INSERT INTO policy (id,

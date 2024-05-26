@@ -81,5 +81,5 @@ def get_policies():
         }
         for policy in policies
     ]
-    return jsonify({'policies': policy_list})
+    return jsonify(policy_list)
 
