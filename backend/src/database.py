@@ -71,12 +71,12 @@ def init_db():
         fields = data["sum_assured"]  
         cursor.execute('''
                     INSERT INTO policy (id,
-                                            death, 
-                                            total_permanent_disability, 
-                                            critical_illness, 
-                                            health, 
-                                            accidental_death, 
-                                            accidental_tpd) 
+                                        death, 
+                                        total_permanent_disability, 
+                                        critical_illness, 
+                                        health, 
+                                        accidental_death, 
+                                        accidental_tpd) 
                         VALUES (?, ?, ?, ?, ?, ?, ?)''', 
                     (policy_name,
                         fields['death'], 

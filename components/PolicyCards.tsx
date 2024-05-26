@@ -41,6 +41,7 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({
   });
 
   const greenCards: JSX.Element[] = [];
+  const orangeCards: JSX.Element[] = [];
   const redCards: JSX.Element[] = [];
 
   Object.entries(attributeSums).forEach(([attribute, sum], index) => {
@@ -54,6 +55,8 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({
     );
     if (sum === 0) {
       redCards.push(card);
+    } else if (0 < sum && sum < 100000) {
+      orangeCards.push(card);
     } else {
       greenCards.push(card);
     }

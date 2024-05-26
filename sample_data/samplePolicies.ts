@@ -6,7 +6,7 @@ export const examplePolicies: any[] = [{
       death: "0",
       total_permanent_disability: "0",
       critical_illness: "0",
-      health: "0",
+      health: "80000",
       accidental_death: "100000",
       accidental_tpd: "300000"
     }
@@ -17,7 +17,7 @@ export const examplePolicies: any[] = [{
       death: "0",
       total_permanent_disability: "0",
       critical_illness: "0",
-      health: "0",
+      health: "10000",
       accidental_death: "500000",
       accidental_tpd: "300000"
     }
