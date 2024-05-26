@@ -47,7 +47,7 @@ export default function Home() {
 
           <div className="space-y-5 mb-3">
             <p className="text-sm text-slate-400 pt-3">
-              Select a coverage you wish to visualise the sum assured of.
+              Select the relevant policies to see a breakdown of sum assured.
             </p>
             <div className="mb-10">
               <div className="">
