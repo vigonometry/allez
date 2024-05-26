@@ -11,7 +11,8 @@ import { CoverageDropdown } from "@/components/ComboBox";
 
 export default function Home() {
   const [selectedPolicies, setSelectedPolicies] = useState<string[]>([]);
-  const [selectedCoverage, setSelectedCoverage] = useState<string>("accidental_tpd");
+  const [selectedCoverage, setSelectedCoverage] =
+    useState<string>("accidental_tpd");
 
   const [policiesD, setPoliciesD] = useState<any>([]);
 
@@ -38,18 +39,40 @@ export default function Home() {
 
       <div className="grid text-center lg:text-left mt-10 grid-cols-3 gap-3 mb-20">
         <div className="col-start-1 col-span-1 row-start-1 p-5">
-          <div className=" mb-10">
-            <MultiSelect setSelectedPolicies={setSelectedPolicies} />
+          <div className="flex-1">
+            <h2 className="place-items-center text-xl font-semibold">
+              Breakdown
+            </h2>
           </div>
-          <div className="p-2">
-          <CoverageDropdown setSelectedCoverage={setSelectedCoverage} />
+
+          <div className="space-y-5 mb-3">
+            <p className="text-sm text-slate-400 pt-3">
+              Select a coverage you wish to visualise the sum assured of.
+            </p>
+            <div className="mb-10">
+              <div className="">
+                <MultiSelect setSelectedPolicies={setSelectedPolicies} />
+              </div>
+            </div>
           </div>
+
+          <div className="space-y-5 mb-10">
+            <p className="text-sm text-slate-400 pt-3">
+              Select a coverage you wish to visualise the sum assured of.
+            </p>
+            <div className="mb-10">
+              <div className="">
+                <CoverageDropdown setSelectedCoverage={setSelectedCoverage} />
+              </div>
+            </div>
+          </div>
+
           {data && (
             <BreakdownChart
               policies={
                 selectedPolicies.length === 0
                   ? data
-                  : data.filter((x) =>
+                  : data.filter((x: any) =>
                       selectedPolicies.includes(
                         x.id.toLowerCase().replace(/\s/g, "_")
                       )

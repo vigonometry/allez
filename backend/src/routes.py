@@ -1,4 +1,4 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, redirect
 # import fitz  # PyMuPDF
 from extractor import extract_data, parse_pdf
 from database import get_db_connection
@@ -8,6 +8,8 @@ routes = Blueprint('routes', __name__)
 
 @routes.route('/upload', methods=['POST'])
 def upload_policy():
+    referrer = request.referrer
+    
     try:
         if 'file' not in request.files:
             return jsonify({'error': 'No file part'}), 400
@@ -47,11 +49,18 @@ def upload_policy():
             except sqlite3.IntegrityError as e:
                 conn.close()
                 # raise e
-                return jsonify({'error': str(e)}), 400
+                if referrer:
+                    return redirect(referrer)
+                else:
+                    return 'No referrer found', 400
 
             conn.close()
             
-            return jsonify(data)
+            
+            if referrer:
+                return redirect(referrer)
+            else:
+                return 'No referrer found', 400
 
     except Exception as e:
         # raise e
