@@ -30,19 +30,29 @@ export const PolicyUpload = () => {
 
   const handleChange = (event: any) => {
     setFileInput(event.target.files[0]);
-
-  }
+  };
 
   return (
     <form
-      className="flex w-full max-w-sm items-center space-x-2"
+      className="w-full space-y-3"
       //   onSubmit={onSubmit}
       action="http://localhost:5000/upload"
       encType="multipart/form-data"
       method="POST"
     >
-      <Input id="policy" name="file" type="file" placeholder="Policy Upload" onChange={handleChange} />
-      <Button disabled={!fileInput}>Submit</Button>
+      <label className="text-sm text-slate-500">
+        Please Select file to analizea and then click submit
+      </label>
+      <Input
+        id="policy"
+        name="file"
+        type="file"
+        placeholder="Policy Upload"
+        onChange={handleChange}
+      />
+      <Button disabled={!fileInput} className="w-full">
+        Submit
+      </Button>
     </form>
   );
 };
