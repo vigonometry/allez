@@ -47,8 +47,8 @@ const PieChart = dynamic(
 );
 
 const extractData = (policies: any, policyType: any) => {
-  let policyNames = policies.map((x) => x.id);
-  let policyValues = policies.map((x) => x[policyType]);
+  let policyNames = policies.map((x: any) => x.id);
+  let policyValues = policies.map((x: any) => x[policyType]);
 
   return {
     labels: policyNames,
