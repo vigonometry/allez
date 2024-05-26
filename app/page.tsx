@@ -11,7 +11,7 @@ import { CoverageDropdown } from "@/components/ComboBox";
 
 export default function Home() {
   const [selectedPolicies, setSelectedPolicies] = useState<string[]>([]);
-  const [selectedCoverage, setSelectedCoverage] = useState<string>("accidental_death");
+  const [selectedCoverage, setSelectedCoverage] = useState<string>("accidental_tpd");
 
   const [policiesD, setPoliciesD] = useState<any>([]);
 
