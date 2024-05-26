@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import MultipleSelector, { Option } from "./ui/multiple-selector";
-import { examplePolicies } from "../sample_data/samplePolicies";
 import { useQuery } from "@tanstack/react-query";
 
 interface MultiSelectProps {

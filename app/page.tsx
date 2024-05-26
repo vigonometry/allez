@@ -1,7 +1,6 @@
 "use client";
 import { PolicyUpload } from "@/components/PolicyUpload";
 import { BreakdownChart } from "@/components/BreakdownChart";
-// import { examplePolicies } from "@/sample_data/samplePolicies";
 import MultiSelect from "@/components/DropDown";
 import { PolicyCards } from "../components/PolicyCards";
 import React, { useEffect, useState } from "react";
