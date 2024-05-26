@@ -26,16 +26,19 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({
     selectedPolicies.length > 0
       ? selectedPolicies
       : policies.map((policy) => policy.id.toLowerCase().replace(/\s/g, "_"));
-
-  policiesToSum.forEach((policyName) => {
-    const policy = policies.find(
-      (policy) => policy.id.toLowerCase().replace(/\s/g, "_") === policyName
-    );
-
-    if (policy) {
+      
+      policiesToSum.forEach((policyName) => {
+        const policy = policies.find(
+          (policy) => policy.id.toLowerCase().replace(/\s/g, "_") === policyName
+        );
+        
+        if (policy) {
+      console.log(policy)
       Object.entries(policy).forEach(([attribute, value]) => {
-        attributeSums[attribute] =
-          (attributeSums[attribute] || 0) + parseInt(value as string);
+        if (attribute != "id") {
+          attributeSums[attribute] =
+            (attributeSums[attribute] || 0) + parseInt(value as string);
+        }
       });
     }
   });
@@ -66,7 +69,7 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({
     <div className="flex">
       <div className="flex-1 p-4">
         <h2 className="place-items-center text-xl font-semibold">Coverage</h2>
-        <div className="flex flex-wrap">{greenCards}</div>
+        <div className="flex flex-wrap">{greenCards}{orangeCards}</div>
       </div>
       <div className="flex-1 p-4">
         <h2 className="text-xl font-semibold">Recommendations</h2>
