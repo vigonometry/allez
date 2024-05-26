@@ -35,9 +35,12 @@ export const PolicyCards: React.FC<PolicyCardsProps> = ({
     );
 
     if (policy) {
+      console.log(policy);
       Object.entries(policy).forEach(([attribute, value]) => {
-        attributeSums[attribute] =
-          (attributeSums[attribute] || 0) + parseInt(value as string);
+        if (attribute != "id") {
+          attributeSums[attribute] =
+            (attributeSums[attribute] || 0) + parseInt(value as string);
+        }
       });
     }
   });

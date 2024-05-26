@@ -37,7 +37,7 @@ def init_db():
         "death": "0",
         "total_permanent_disability": "20000",
         "critical_illness": "0",
-        "health": "100000",
+        "health": "80000",
         "accidental_death": "0",
         "accidental_tpd": "300000"
          }

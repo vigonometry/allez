@@ -1,6 +1,6 @@
 import pdfplumber
 from flask import Flask, request
-from openai import OpenAI
+# from openai import OpenAI
 import os
 
 IS_TEST = True
@@ -67,23 +67,23 @@ def extract_data(text: str):
     if IS_TEST:
         return TEST_DATA
     
-    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-    OPENAI_ORG = os.getenv('OPENAI_ORG')
-    OPENAI_PROJECT = os.getenv('OPENAI_PROJECT')
+    # OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+    # OPENAI_ORG = os.getenv('OPENAI_ORG')
+    # OPENAI_PROJECT = os.getenv('OPENAI_PROJECT')
 
-    client = OpenAI(
-        api_key=OPENAI_API_KEY,
-        organization=OPENAI_ORG,
-        project=OPENAI_PROJECT
-    )
+    # client = OpenAI(
+    #     api_key=OPENAI_API_KEY,
+    #     organization=OPENAI_ORG,
+    #     project=OPENAI_PROJECT
+    # )
 
-    completion = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {"role": "user", "content": f'{template_prompt} {text}'}
-        ]
-    )
-    return completion.choices[0].message
+    # completion = client.chat.completions.create(
+    #     model="gpt-4o",
+    #     messages=[
+    #         {"role": "user", "content": f'{template_prompt} {text}'}
+    #     ]
+    # )
+    # return completion.choices[0].message
 
 def parse_pdf(file):
     if IS_TEST:

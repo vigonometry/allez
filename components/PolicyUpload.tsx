@@ -41,7 +41,7 @@ export const PolicyUpload = () => {
       method="POST"
     >
       <label className="text-sm text-slate-500">
-        Please Select file to analizea and then click submit
+        Please select a pdf policy document to analyze and then click submit.
       </label>
       <Input
         id="policy"
