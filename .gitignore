@@ -41,3 +41,6 @@ backend/src/__pycache__/database.cpython-38.pyc
 backend/src/__pycache__/extractor.cpython-38.pyc
 backend/src/__pycache__/routes.cpython-38.pyc
 backend/src/app.db
+
+#python pycache
+backend/src/__pycache__/
