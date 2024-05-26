@@ -36,7 +36,7 @@ export default function Home() {
 
       <div className="grid text-center lg:text-left mt-10 grid-cols-3 gap-3 mb-20">
         <div className="col-start-1 col-span-1 row-start-1 p-5">
-          <div className="">
+          <div className=" mb-10">
             <MultiSelect setSelectedPolicies={setSelectedPolicies} />
           </div>
           {data && (
